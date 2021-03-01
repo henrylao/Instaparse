@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "Error while saving post!", e);
                 }
                 Log.i(TAG, "Post was saved successfully!");
+                Toast.makeText(MainActivity.this, "Posted!", Toast.LENGTH_SHORT).show();
                 etDescription.setText(""); // reset text
             }
         });
