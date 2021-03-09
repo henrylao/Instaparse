@@ -2,6 +2,7 @@ package com.example.instaparse;
 
 import android.app.Application;
 
+import com.example.instaparse.model.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -14,7 +15,6 @@ public class InstaparseApplication extends Application {
         super.onCreate();
         // Register needed modesl hosted on backend
         ParseObject.registerSubclass(Post.class);
-
 
         // Use for troubleshooting -- remove this line for production
         Parse.setLogLevel(Parse.LOG_LEVEL_DEBUG);
