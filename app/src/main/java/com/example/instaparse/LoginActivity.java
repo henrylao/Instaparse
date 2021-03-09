@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (ParseUser.getCurrentUser() != null){
+        if (ParseUser.getCurrentUser() != null) {
             goToMainActivity();
         }
 
@@ -44,15 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String username, String password){
-        Log.i(TAG,"Attempting to login user " + username );
+    private void loginUser(String username, String password) {
+        Log.i(TAG, "Attempting to login user: " + username);
         // TODO: nav to main activity if the user has signed in properly
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if ( e != null){
+                if (e != null) {
                     // TODO: better error handling via feedback to user
-                    Log.e(TAG,"Issue with login", e);
+                    Log.e(TAG, "Issue with login", e);
                     return;
                 }
                 goToMainActivity();
@@ -61,7 +61,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void goToMainActivity(){
+    private void signoutUser() {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+    }
+
+    private void signupUser() {
+        Log.i(TAG, "Attempting to sign up user");
+
+    }
+
+    private void goToMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish(); // disable user ability to renavigate after a successful login
