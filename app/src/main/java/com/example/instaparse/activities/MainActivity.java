@@ -33,15 +33,15 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment;
                 switch (btmNavMenuItem.getItemId()) {
                     case R.id.action_compose:
-                        Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show(); // DEBUG
                         fragment = new ComposeFragment();
                         break;
                     case R.id.action_home:
-                        Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show(); // DEBUG
                         fragment = new HomeFragment();
                         break;
                     case R.id.action_profile:
-                        Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show(); // DEBUG
                         fragment = new ProfileFragment();
                         break;
                     default:

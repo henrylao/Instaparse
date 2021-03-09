@@ -22,7 +22,7 @@ The following **optional** features are implemented:
 - [ ] User Profiles
       - [ ] Allow the logged in user to add a profile photo
       - [ ] Display the profile photo with each post
-      - [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts 
+      - [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts
 - [ ] User can comment on a post and see all comments for each post in the post details screen.
 - [ ] User can like a post and see number of likes for each post in the post details screen.
 
@@ -59,7 +59,7 @@ The following **required** functionality is completed:
 	- [ ] User can log out
 - [x] The current signed in user is persisted across app restarts.
 - [ ] User can take a photo, add a caption, and post it to "Instagram".
-	- [ ] Photo capture and upload 
+	- [ ] Photo capture and upload
 	- [x] Create with caption
 	- [x] User can submit post
 
@@ -82,8 +82,7 @@ Here's a walkthrough of implemented user stories:
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
-
-Describe any challenges encountered while building the app.
+* Usage of a frame layout container for swapping out content pertaining to a particular fragment
 
 ## Open-source libraries used
 
