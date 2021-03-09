@@ -1,4 +1,4 @@
-package com.example.instaparse;
+package com.example.instaparse.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;

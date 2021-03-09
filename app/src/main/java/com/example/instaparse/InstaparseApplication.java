@@ -2,7 +2,7 @@ package com.example.instaparse;
 
 import android.app.Application;
 
-import com.example.instaparse.model.Post;
+import com.example.instaparse.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
