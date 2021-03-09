@@ -1,5 +1,7 @@
 package com.example.instaparse.fragments;
 
+import android.annotation.SuppressLint;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +29,7 @@ import com.example.instaparse.R;
 import com.example.instaparse.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -124,13 +127,14 @@ public class ComposeFragment extends Fragment {
                 }
 
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser);
+                savePost(description, currentUser, photoFile);
             }
         });
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(getContext(), "Clicked image capture button!", Toast.LENGTH_SHORT).show();
                 launchCamera();
             }
         });
@@ -154,10 +158,11 @@ public class ComposeFragment extends Fragment {
         });
     }
 
-    private void savePost(String description, ParseUser user) {
+    private void savePost(String description, ParseUser user, File photoFile) {
         Post p = new Post();
         p.setDescription(description);
         p.setUser(user);
+        p.setImage(new ParseFile(photoFile));
         p.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -184,22 +189,26 @@ public class ComposeFragment extends Fragment {
         return new File(mediaStorageDirectory.getPath() + File.separator + photoFileName);
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void launchCamera() {
-        //Create intent to take a picutre and reutnr control to the calling application
-        Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference to access 
+        Log.d(TAG, "launchCamera: user clicked camera launcher");
+        // Create an implicit intent to take a picture and return control to the calling application
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Create a File reference for future access
         photoFile = getPhotoFileUri(photoFileName);
 
-        // wrap File object in a content provider
+        // wrap File object into a content provider
         // required for API >= 24
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.exmample.instaparse", photoFile);
-        i.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
-        // Note: If you call starActivityResult() using an intent that no app can handle, the application will crash
-        // So long as the result is not null, it's safe to use the intent
-        if (i.resolveActivity(getContext().getPackageManager()) != null) {
-            // Start the image capture intent to take the photo
-            startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+        ComponentName activityName = intent.resolveActivity(getContext().getPackageManager());
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            // Start the image capture intent to take photo
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE); //
         }
     }
 
